@@ -4,6 +4,7 @@ import Model.Person.*;
 import Model.Person.ObjectCurrent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -11,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -66,7 +68,8 @@ public class LoginController implements IConnect<Administrator> {
             Administrator ad = getUserInfo(username);
             ObjectCurrent.setObjectCurrent(ad);
             Alert alertFail = new Alert(Alert.AlertType.INFORMATION);
-            alertFail.setTitle("Login up successful");
+            alertFail.setTitle("Login");
+            alertFail.setHeaderText("Login successful!");
             alertFail.showAndWait();
 
             Stage stage = (Stage) usernameText.getScene().getWindow();
@@ -74,7 +77,8 @@ public class LoginController implements IConnect<Administrator> {
         } else {
             // Dang nhap that bai
             Alert alertFail = new Alert(Alert.AlertType.WARNING);
-            alertFail.setTitle("Fail!");
+            alertFail.setTitle("Login");
+            alertFail.setHeaderText("Login fail!");
             alertFail.showAndWait();
         }
     }
@@ -214,7 +218,21 @@ public class LoginController implements IConnect<Administrator> {
         st.executeUpdate(sql);
         return 0;
     }
+    public void change_to_signup(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/LoginScreen/Signup.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
+    public void change_to_login(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/LoginScreen/Login.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow(); //ep kieu
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
     @Override
     public ArrayList<Administrator> selectAll() {
         ArrayList<Administrator> result = new ArrayList<Administrator>();
